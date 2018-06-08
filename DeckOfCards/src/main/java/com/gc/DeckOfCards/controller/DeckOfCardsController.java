@@ -14,33 +14,38 @@ import com.gc.DeckOfCards.model.Deck;
 @Controller
 public class DeckOfCardsController {
 	
-//	@RequestMapping("/")
-//	public ModelAndView index() {
-//		CloseableHttpClient httpClient = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier())
-//				.build();
-//		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-//		requestFactory.setHttpClient(httpClient);
-//		RestTemplate restTemplate = new RestTemplate(requestFactory);
-//		Deck deck = restTemplate.getForObject("https://deckofcardsapi.com/api/deck/new/shuffle", Deck.class);
-//		return new ModelAndView("index", "deck", deck);
-//	}
+	@RequestMapping("/")
+	public ModelAndView index() {
+		CloseableHttpClient httpClient = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier())
+				.build();
+		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+		requestFactory.setHttpClient(httpClient);
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		Deck deck = restTemplate.getForObject("https://deckofcardsapi.com/api/deck/new/shuffle", Deck.class);
+		return new ModelAndView("index", "deck", deck);
+	}
 	
 	//private String deck_id = "tz7txn5wtha1";
 
 	private String deck_id = "tz7txn5wtha1";
 	
-	@RequestMapping("/")
-	public ModelAndView index() {
+	@RequestMapping("/drawfive")
+	public ModelAndView index2() {
 		
 		CloseableHttpClient httpClient = HttpClients.custom().setSSLHostnameVerifier(new NoopHostnameVerifier())
 				.build();
 		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
 		requestFactory.setHttpClient(httpClient);
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
-		restTemplate.getForObject("https://deckofcardsapi.com/api/deck/" + deck_id + "/shuffle/", Deck.class);
-		Deck deck = restTemplate.getForObject("https://deckofcardsapi.com/api/deck/" + deck_id + "/draw/?count=5", Deck.class);
+//		restTemplate.getForObject("https://deckofcardsapi.com/api/deck/" + deck_id + "/shuffle/", Deck.class);
+		Deck deck = restTemplate.getForObject("https://deckofcardsapi.com/api/deck/new/shuffle", Deck.class);
 		
-		return new ModelAndView("index", "deck", deck);
+		String eyeDee = deck.getDeck_id();
+
+		
+		Deck deck2 = restTemplate.getForObject("https://deckofcardsapi.com/api/deck/" + eyeDee + "/draw/?count=15", Deck.class);
+		
+		return new ModelAndView("index", "deck", deck2);
 	}
 	
 

@@ -21,10 +21,10 @@
 	</div>
 	<div class="container mt-5">
 
-		<table class="table table-hover">
+		<table class="table table-hover table-sm table-bordered">
 			<tr>
 				<c:forEach var="item" items="${deck.cards }">
-					<td><img src=${item.image }></td>
+					<td><img src=${item.image } height=100px></td>
 				</c:forEach>
 			</tr>
 		</table>
